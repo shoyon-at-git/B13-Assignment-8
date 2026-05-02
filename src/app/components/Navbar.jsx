@@ -14,11 +14,11 @@ export default function Navbar() {
             tabIndex={0}
             className="menu menu-sm dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 z-50"
           >
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="/products">Products</Link></li>
-            <li><Link href="/profile">My Profile</Link></li>
-            <li><Link href="/login">Login</Link></li>
-            <li><Link href="/register">Register</Link></li>
+            <li><Link href={"/"}>Home</Link></li>
+            <li><Link href={"/my-products"}>Products</Link></li>
+            <li><Link href={"/my-profile"}>My Profile</Link></li>
+            <li><Link href={"/login"}>Login</Link></li>
+            <li><Link href={"/register"}>Register</Link></li>
           </ul>
         </div>
         <Link href={"/"} className="text-xl font-bold ml-2">
