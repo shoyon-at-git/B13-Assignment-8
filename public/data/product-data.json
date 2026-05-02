@@ -1,0 +1,134 @@
+[
+  {
+    "id": 1,
+    "name": "UV Protection Sunglasses",
+    "brand": "SunShade",
+    "price": 15,
+    "rating": 4.7,
+    "stock": 10,
+    "description": "Stylish UV protection sunglasses perfect for summer outings.",
+    "image": "https://i.postimg.cc/0y8FtyxX/sunglass.png",
+    "category": "Accessories"
+  },
+  {
+    "id": 2,
+    "name": "Beach Hat",
+    "brand": "SunnyWear",
+    "price": 12,
+    "rating": 4.5,
+    "stock": 8,
+    "description": "Lightweight breathable hat ideal for beach days.",
+    "image": "https://i.postimg.cc/8zQZpJ1p/hat.png",
+    "category": "Fashion"
+  },
+  {
+    "id": 3,
+    "name": "Summer T-Shirt",
+    "brand": "CoolFit",
+    "price": 18,
+    "rating": 4.6,
+    "stock": 15,
+    "description": "Soft cotton t-shirt designed for hot weather comfort.",
+    "image": "https://i.postimg.cc/3wYpGJkM/tshirt.png",
+    "category": "Clothing"
+  },
+  {
+    "id": 4,
+    "name": "SPF 50 Sunscreen",
+    "brand": "SkinCare+",
+    "price": 10,
+    "rating": 4.8,
+    "stock": 20,
+    "description": "High protection sunscreen to keep your skin safe.",
+    "image": "https://i.postimg.cc/7Y2K8b6y/sunscreen.png",
+    "category": "Skincare"
+  },
+  {
+    "id": 5,
+    "name": "Flip Flops",
+    "brand": "BeachWalk",
+    "price": 9,
+    "rating": 4.3,
+    "stock": 25,
+    "description": "Comfortable flip flops perfect for casual wear.",
+    "image": "https://i.postimg.cc/2yZ6T9Zs/flipflop.png",
+    "category": "Footwear"
+  },
+  {
+    "id": 6,
+    "name": "Water Bottle",
+    "brand": "HydroCool",
+    "price": 8,
+    "rating": 4.4,
+    "stock": 30,
+    "description": "Eco-friendly reusable water bottle.",
+    "image": "https://i.postimg.cc/5yWzRzJ9/bottle.png",
+    "category": "Accessories"
+  },
+  {
+    "id": 7,
+    "name": "Beach Shorts",
+    "brand": "WaveStyle",
+    "price": 20,
+    "rating": 4.5,
+    "stock": 12,
+    "description": "Quick-dry beach shorts for summer fun.",
+    "image": "https://i.postimg.cc/qRkGJq7F/shorts.png",
+    "category": "Clothing"
+  },
+  {
+    "id": 8,
+    "name": "Sun Hat",
+    "brand": "HeatGuard",
+    "price": 14,
+    "rating": 4.2,
+    "stock": 18,
+    "description": "Wide brim hat for full sun protection.",
+    "image": "https://i.postimg.cc/4xFzPz4y/sunhat.png",
+    "category": "Fashion"
+  },
+  {
+    "id": 9,
+    "name": "Cooling Face Mist",
+    "brand": "FreshSkin",
+    "price": 11,
+    "rating": 4.6,
+    "stock": 22,
+    "description": "Refreshing mist to keep your face cool.",
+    "image": "https://i.postimg.cc/0N6X2z2F/mist.png",
+    "category": "Skincare"
+  },
+  {
+    "id": 10,
+    "name": "Beach Bag",
+    "brand": "CarryLite",
+    "price": 16,
+    "rating": 4.4,
+    "stock": 14,
+    "description": "Spacious and stylish bag for beach essentials.",
+    "image": "https://i.postimg.cc/Nf2Q1zM9/bag.png",
+    "category": "Accessories"
+  },
+  {
+    "id": 11,
+    "name": "Sandals",
+    "brand": "StepEasy",
+    "price": 17,
+    "rating": 4.3,
+    "stock": 19,
+    "description": "Lightweight sandals for everyday comfort.",
+    "image": "https://i.postimg.cc/XqP0X8Gq/sandals.png",
+    "category": "Footwear"
+  },
+  {
+    "id": 12,
+    "name": "Aloe Vera Gel",
+    "brand": "NatureCare",
+    "price": 7,
+    "rating": 4.8,
+    "stock": 28,
+    "description": "Soothing gel for sunburn and skin care.",
+    "image": "https://i.postimg.cc/FRv3kz3F/aloe.png",
+    "category": "Skincare"
+  }
+]
