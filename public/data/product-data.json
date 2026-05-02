@@ -7,7 +7,7 @@
     "rating": 4.7,
     "stock": 10,
     "description": "Stylish UV protection sunglasses perfect for summer outings.",
-    "image": "https://i.postimg.cc/0y8FtyxX/sunglass.png",
+    "image": "/assets/product-images/sunglasses.png",
     "category": "Accessories"
   },
   {
@@ -18,7 +18,7 @@
     "rating": 4.5,
     "stock": 8,
     "description": "Lightweight breathable hat ideal for beach days.",
-    "image": "https://i.postimg.cc/8zQZpJ1p/hat.png",
+    "image": "/assets/product-images/beach-hat.png",
     "category": "Fashion"
   },
   {
@@ -29,7 +29,7 @@
     "rating": 4.6,
     "stock": 15,
     "description": "Soft cotton t-shirt designed for hot weather comfort.",
-    "image": "https://i.postimg.cc/3wYpGJkM/tshirt.png",
+    "image": "/assets/product-images/tshirt.png",
     "category": "Clothing"
   },
   {
@@ -40,7 +40,7 @@
     "rating": 4.8,
     "stock": 20,
     "description": "High protection sunscreen to keep your skin safe.",
-    "image": "https://i.postimg.cc/7Y2K8b6y/sunscreen.png",
+    "image": "/assets/product-images/sunscreen.png",
     "category": "Skincare"
   },
   {
@@ -51,7 +51,7 @@
     "rating": 4.3,
     "stock": 25,
     "description": "Comfortable flip flops perfect for casual wear.",
-    "image": "https://i.postimg.cc/2yZ6T9Zs/flipflop.png",
+    "image": "/assets/product-images/flip-flops.png",
     "category": "Footwear"
   },
   {
@@ -62,7 +62,7 @@
     "rating": 4.4,
     "stock": 30,
     "description": "Eco-friendly reusable water bottle.",
-    "image": "https://i.postimg.cc/5yWzRzJ9/bottle.png",
+    "image": "/assets/product-images/water-bottle.png",
     "category": "Accessories"
   },
   {
@@ -73,7 +73,7 @@
     "rating": 4.5,
     "stock": 12,
     "description": "Quick-dry beach shorts for summer fun.",
-    "image": "https://i.postimg.cc/qRkGJq7F/shorts.png",
+    "image": "/assets/product-images/beach-shorts.png",
     "category": "Clothing"
   },
   {
@@ -84,7 +84,7 @@
     "rating": 4.2,
     "stock": 18,
     "description": "Wide brim hat for full sun protection.",
-    "image": "https://i.postimg.cc/4xFzPz4y/sunhat.png",
+    "image": "/assets/product-images/sun-hat.png",
     "category": "Fashion"
   },
   {
@@ -95,7 +95,7 @@
     "rating": 4.6,
     "stock": 22,
     "description": "Refreshing mist to keep your face cool.",
-    "image": "https://i.postimg.cc/0N6X2z2F/mist.png",
+    "image": "/assets/product-images/face-mist.png",
     "category": "Skincare"
   },
   {
@@ -106,7 +106,7 @@
     "rating": 4.4,
     "stock": 14,
     "description": "Spacious and stylish bag for beach essentials.",
-    "image": "https://i.postimg.cc/Nf2Q1zM9/bag.png",
+    "image": "/assets/product-images/beach-bag.png",
     "category": "Accessories"
   },
   {
@@ -117,7 +117,7 @@
     "rating": 4.3,
     "stock": 19,
     "description": "Lightweight sandals for everyday comfort.",
-    "image": "https://i.postimg.cc/XqP0X8Gq/sandals.png",
+    "image": "/assets/product-images/sandals.png",
     "category": "Footwear"
   },
   {
@@ -128,7 +128,7 @@
     "rating": 4.8,
     "stock": 28,
     "description": "Soothing gel for sunburn and skin care.",
-    "image": "https://i.postimg.cc/FRv3kz3F/aloe.png",
+    "image": "/assets/product-images/aloe-vera-gel.png",
     "category": "Skincare"
   }
 ]
