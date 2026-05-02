@@ -19,7 +19,7 @@ const ProductCard = ({ product }) => {
                     <span className="font-semibold">${product.price}</span>
                 </div>
 
-                <Link href={`/products/${product.id}`}>
+                <Link href={`/my-products/${product.id}`}>
                     <button className="btn btn-primary btn-sm w-full mt-2">View Details</button>
                 </Link>
             </div>
