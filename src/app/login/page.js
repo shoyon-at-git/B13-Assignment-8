@@ -13,60 +13,108 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       await authClient.signIn.email({ email, password });
       router.push(redirectTo);
-    } catch (e) {
+    } catch (err) {
+      console.error(err);
       setError("Invalid email or password");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogle = async () => {
+    try {
+      setLoading(true);
+
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: redirectTo,
+      });
+
+    } catch (err) {
+      console.error(err);
+      setError("Google login failed");
+      setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <form onSubmit={handleLogin} className="card bg-base-100 p-6 shadow w-80 space-y-4">
+    <div className="min-h-screen flex items-center justify-center bg-base-200">
 
-        <h2 className="text-2xl font-bold text-center">Login</h2>
+      <form
+        onSubmit={handleLogin}
+        className="card bg-base-100 p-6 shadow w-80 space-y-4"
+      >
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="input input-bordered w-full"
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-
-        <input
-          type="password"
-          placeholder="Password"
-          className="input input-bordered w-full"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-
-        <button className="btn btn-primary w-full">
+        <h2 className="text-2xl font-bold text-center">
           Login
+        </h2>
+
+        {/* EMAIL */}
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Email</span>
+          </label>
+
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className="input input-bordered w-full"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* PASSWORD */}
+        <div className="form-control">
+          <label className="label">
+            <span className="label-text">Password</span>
+          </label>
+
+          <input
+            type="password"
+            placeholder="Enter your password"
+            className="input input-bordered w-full"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+
+        {/* ERROR */}
+        {error && (
+          <p className="text-red-500 text-sm">
+            {error}
+          </p>
+        )}
+
+        {/* LOGIN BUTTON */}
+        <button
+          className="btn btn-primary w-full"
+          disabled={loading}
+        >
+          {loading ? "Logging in..." : "Login"}
         </button>
 
+        {/* GOOGLE LOGIN */}
         <button
           type="button"
-          onClick={() =>
-            authClient.signIn.social({
-              provider: "google",
-              callbackURL: redirectTo,
-            })
-          }
+          onClick={handleGoogle}
           className="btn w-full"
+          disabled={loading}
         >
           Continue with Google
         </button>
 
+        {/* FOOTER */}
         <p className="text-sm text-center">
           Don’t have an account?{" "}
           <Link href="/register" className="text-primary">
@@ -75,6 +123,7 @@ export default function LoginPage() {
         </p>
 
       </form>
+
     </div>
   );
 }

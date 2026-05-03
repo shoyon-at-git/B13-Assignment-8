@@ -7,46 +7,52 @@ import { toast } from "react-toastify";
 import Link from "next/link";
 
 export default function RegisterPage() {
-
   const router = useRouter();
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [photo, setPhoto] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
-      await authClient.signUp.email({
+      const res = await authClient.signUp.email({
         name,
         email,
         password,
         image: photo,
       });
 
+      console.log("REGISTER RESPONSE:", res);
+
       toast.success("Account created 🎉");
 
+      // IMPORTANT: small delay ensures cookie/session is written
       setTimeout(() => {
-        router.push("/login");
-      }, 800);
+        router.push("/");
+        router.refresh();
+      }, 500);
 
     } catch (err) {
+      console.error(err);
       toast.error("Registration failed ❌");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleGoogle = async () => {
     try {
-      toast.info("Redirecting to Google...");
-
       await authClient.signIn.social({
         provider: "google",
         callbackURL: "/",
       });
-
-    } catch {
+    } catch (err) {
+      console.error(err);
       toast.error("Google login failed");
     }
   };
@@ -54,9 +60,14 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200">
 
-      <form onSubmit={handleRegister} className="card bg-base-100 shadow p-6 w-80 space-y-4">
+      <form
+        onSubmit={handleRegister}
+        className="card bg-base-100 shadow p-6 w-80 space-y-4"
+      >
 
-        <h2 className="text-2xl font-bold text-center">Register</h2>
+        <h2 className="text-2xl font-bold text-center">
+          Register
+        </h2>
 
         <input
           type="text"
@@ -89,8 +100,11 @@ export default function RegisterPage() {
           required
         />
 
-        <button className="btn btn-primary w-full">
-          Register
+        <button
+          className="btn btn-primary w-full"
+          disabled={loading}
+        >
+          {loading ? "Creating..." : "Register"}
         </button>
 
         <button
