@@ -1,129 +1,134 @@
+
 "use client";
 
-import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
-  const router = useRouter();
-  const params = useSearchParams();
-  const redirectTo = params.get("redirect") || "/";
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleLogin = async (e) => {
+  const handleLogin = async(e) =>{
     e.preventDefault();
-    setError("");
-    setLoading(true);
-
-    try {
-      await authClient.signIn.email({ email, password });
-      router.push(redirectTo);
-    } catch (err) {
-      console.error(err);
-      setError("Invalid email or password");
-    } finally {
-      setLoading(false);
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+    console.log(user);
+    const {data, error} = await authClient.signIn.email({
+      email: user.email,
+      password: user.password,
+      callbackURL: "/",
+    })
+    // console.log({data,error});
+    if(error){
+      toast.error(error.message);
+      return;
     }
-  };
-
-  const handleGoogle = async () => {
-    try {
-      setLoading(true);
-
-      await authClient.signIn.social({
-        provider: "google",
-        callbackURL: redirectTo,
-      });
-
-    } catch (err) {
-      console.error(err);
-      setError("Google login failed");
-      setLoading(false);
-    }
-  };
-
+    toast.success("Login successful.")
+  }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200">
-
-      <form
-        onSubmit={handleLogin}
-        className="card bg-base-100 p-6 shadow w-80 space-y-4"
+    <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-10">
+      <section className="w-full max-w-lg bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden"
       >
+        <header className="bg-black text-white text-center p-8">
+          <h1
+            id="login-heading"
+            className="text-3xl font-bold"
+          >
+            Welcome Back
+          </h1>
 
-        <h2 className="text-2xl font-bold text-center">
-          Login
-        </h2>
-
-        {/* EMAIL */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Email</span>
-          </label>
-
-          <input
-            type="email"
-            placeholder="Enter your email"
-            className="input input-bordered w-full"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-
-        {/* PASSWORD */}
-        <div className="form-control">
-          <label className="label">
-            <span className="label-text">Password</span>
-          </label>
-
-          <input
-            type="password"
-            placeholder="Enter your password"
-            className="input input-bordered w-full"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        {/* ERROR */}
-        {error && (
-          <p className="text-red-500 text-sm">
-            {error}
+          <p className="mt-2 text-gray-300">
+            Login to access your account
           </p>
-        )}
+        </header>
 
-        {/* LOGIN BUTTON */}
-        <button
-          className="btn btn-primary w-full"
-          disabled={loading}
-        >
-          {loading ? "Logging in..." : "Login"}
-        </button>
+        <div className="p-8">
+          <form onSubmit={handleLogin} className="space-y-5">
+            <fieldset className="space-y-5">
+              <legend className="sr-only">
+                Login Form
+              </legend>
 
-        {/* GOOGLE LOGIN */}
-        <button
-          type="button"
-          onClick={handleGoogle}
-          className="btn w-full"
-          disabled={loading}
-        >
-          Continue with Google
-        </button>
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Email Address
+                </label>
 
-        {/* FOOTER */}
-        <p className="text-sm text-center">
-          Don’t have an account?{" "}
-          <Link href="/register" className="text-primary">
-            Register
-          </Link>
-        </p>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                  className="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-black"
+                />
+              </div>
 
-      </form>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Password
+                </label>
 
-    </div>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  required
+                  className="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-black"
+                />
+              </div>
+            </fieldset>
+
+            <button
+              type="submit"
+              className="w-full bg-black text-white py-3 rounded-xl font-semibold hover:opacity-90 transition cursor-pointer"
+            >
+              Login
+            </button>
+          </form>
+
+          <section
+            aria-label="Alternative login options"
+            className="mt-6"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <hr className="flex-1 border-slate-300" />
+              <span className="text-sm text-slate-500">
+                OR
+              </span>
+              <hr className="flex-1 border-slate-300" />
+            </div>
+
+            <button
+              type="button"
+              className="w-full border border-slate-300 py-3 rounded-xl flex items-center justify-center gap-3 hover:bg-slate-50 transition cursor-pointer"
+            >
+              <FcGoogle size={24} />
+              <span className="font-medium">
+                Continue with Google
+              </span>
+            </button>
+          </section>
+
+          <footer className="mt-6 text-center">
+            <p className="text-slate-600">
+              Don't have an account?{" "}
+              <Link
+                href="/register"
+                className="font-semibold text-black hover:underline"
+              >
+                Register
+              </Link>
+            </p>
+          </footer>
+        </div>
+      </section>
+    </main>
   );
 }

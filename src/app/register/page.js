@@ -1,129 +1,171 @@
 "use client";
 
-import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 export default function RegisterPage() {
   const router = useRouter();
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [photo, setPhoto] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-
   const handleRegister = async (e) => {
     e.preventDefault();
-    setLoading(true);
+    const formData = new FormData(e.currentTarget);
+    const user = Object.fromEntries(formData.entries());
+    // console.log(user);
+    const { data, error } = await authClient.signUp.email({
+      name: user.name,
+      email: user.email,
+      password: user.password,
+      image: user.image,
+    });
+    // console.log({data,error});
+    if (error) {
+    toast.error(error.message);
+    return;
+  }
 
-    try {
-      const res = await authClient.signUp.email({
-        name,
-        email,
-        password,
-        image: photo,
-      });
-
-      console.log("REGISTER RESPONSE:", res);
-
-      toast.success("Account created 🎉");
-
-      // IMPORTANT: small delay ensures cookie/session is written
-      setTimeout(() => {
-        router.push("/");
-        router.refresh();
-      }, 500);
-
-    } catch (err) {
-      console.error(err);
-      toast.error("Registration failed ❌");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogle = async () => {
-    try {
-      await authClient.signIn.social({
-        provider: "google",
-        callbackURL: "/",
-      });
-    } catch (err) {
-      console.error(err);
-      toast.error("Google login failed");
-    }
-  };
-
+  toast.success("User successfully registered");
+  router.push("/login");
+  }
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200">
-
-      <form
-        onSubmit={handleRegister}
-        className="card bg-base-100 shadow p-6 w-80 space-y-4"
+    <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-10">
+      <section
+        className="w-full max-w-lg bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden"
       >
+        <header className="bg-black text-white text-center p-8">
+          <h1 className="text-3xl font-bold">
+            Create Account
+          </h1>
 
-        <h2 className="text-2xl font-bold text-center">
-          Register
-        </h2>
+          <p className="mt-2 text-gray-300">
+            Register to access all features of the platform
+          </p>
+        </header>
 
-        <input
-          type="text"
-          placeholder="Name"
-          className="input input-bordered w-full"
-          onChange={(e) => setName(e.target.value)}
-          required
-        />
+        <div className="p-8">
+          <form onSubmit={handleRegister} className="space-y-5">
+            <fieldset className="space-y-5">
+              <legend className="sr-only">
+                Registration Form
+              </legend>
 
-        <input
-          type="email"
-          placeholder="Email"
-          className="input input-bordered w-full"
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+              <div>
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Full Name*
+                </label>
 
-        <input
-          type="text"
-          placeholder="Photo URL"
-          className="input input-bordered w-full"
-          onChange={(e) => setPhoto(e.target.value)}
-        />
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  placeholder="John Doe"
+                  required
+                  className="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-black"
+                />
+              </div>
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="input input-bordered w-full"
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Email Address*
+                </label>
 
-        <button
-          className="btn btn-primary w-full"
-          disabled={loading}
-        >
-          {loading ? "Creating..." : "Register"}
-        </button>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="john@example.com"
+                  required
+                  className="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-black"
+                />
+              </div>
 
-        <button
-          type="button"
-          onClick={handleGoogle}
-          className="btn w-full"
-        >
-          Continue with Google
-        </button>
+              <div>
+                <label
+                  htmlFor="image"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Photo URL (optional)
+                </label>
 
-        <p className="text-sm text-center">
-          Already have account?{" "}
-          <Link href="/login" className="text-primary">
-            Login
-          </Link>
-        </p>
+                <input
+                  id="photo"
+                  name="image"
+                  type="url"
+                  placeholder="https://example.com/photo.jpg"
+                  className="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-black"
+                />
+              </div>
 
-      </form>
+              <div>
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium mb-2"
+                >
+                  Password
+                </label>
 
-    </div>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Enter your password"
+                  required
+                  className="w-full px-4 py-3 border border-slate-300 rounded-xl outline-none focus:ring-2 focus:ring-black"
+                />
+              </div>
+            </fieldset>
+
+            <button
+              type="submit"
+              className="w-full bg-black text-white py-3 rounded-xl font-semibold hover:opacity-90 transition cursor-pointer"
+            >
+              Register
+            </button>
+          </form>
+
+          <section
+            aria-label="Alternative sign in options"
+            className="mt-6"
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <hr className="flex-1 border-slate-300" />
+              <span className="text-sm text-slate-500">
+                OR
+              </span>
+              <hr className="flex-1 border-slate-300" />
+            </div>
+
+            <button
+              type="button"
+              className="w-full border border-slate-300 py-3 rounded-xl flex items-center justify-center gap-3 hover:bg-slate-50 transition cursor-pointer"
+            >
+              <FcGoogle size={24} />
+              <span className="font-medium">
+                Continue with Google
+              </span>
+            </button>
+          </section>
+
+          <footer className="mt-6 text-center">
+            <p className="text-slate-600">
+              Already have an account?{" "}
+              <Link
+                href="/login"
+                className="font-semibold text-black hover:underline"
+              >
+                Login
+              </Link>
+            </p>
+          </footer>
+        </div>
+      </section>
+    </main>
   );
 }
