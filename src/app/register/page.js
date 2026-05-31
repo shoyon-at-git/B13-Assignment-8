@@ -28,6 +28,12 @@ export default function RegisterPage() {
   toast.success("User successfully registered");
   router.push("/login");
   }
+
+  const handleGoogleLogin = async() =>{
+    await authClient.signIn.social({
+      provider: 'google',
+    })
+  }
   return (
     <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-10">
       <section
@@ -144,6 +150,7 @@ export default function RegisterPage() {
 
             <button
               type="button"
+              onClick={handleGoogleLogin}
               className="w-full border border-slate-300 py-3 rounded-xl flex items-center justify-center gap-3 hover:bg-slate-50 transition cursor-pointer"
             >
               <FcGoogle size={24} />

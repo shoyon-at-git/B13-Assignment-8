@@ -24,6 +24,11 @@ export default function LoginPage() {
     }
     toast.success("Login successful.")
   }
+  const handleGoogleLogin = async() =>{
+    await authClient.signIn.social({
+      provider: 'google',
+    })
+  }
   return (
     <main className="min-h-screen bg-slate-50 flex items-center justify-center px-4 py-10">
       <section className="w-full max-w-lg bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden"
@@ -107,6 +112,7 @@ export default function LoginPage() {
 
             <button
               type="button"
+              onClick={handleGoogleLogin}
               className="w-full border border-slate-300 py-3 rounded-xl flex items-center justify-center gap-3 hover:bg-slate-50 transition cursor-pointer"
             >
               <FcGoogle size={24} />
