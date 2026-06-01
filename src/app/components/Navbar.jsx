@@ -3,9 +3,11 @@
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Navbar() {
+    const router = useRouter();
     const { data , isPending} = authClient.useSession();
     const user = data?.user;
 
@@ -13,6 +15,7 @@ export default function Navbar() {
 
     const handleLogout = async () => {
         await authClient.signOut();
+        router.push("/");
     };
 
     const getInitial = (name) => name?.charAt(0)?.toUpperCase() || "U";
