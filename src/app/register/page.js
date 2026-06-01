@@ -25,8 +25,11 @@ export default function RegisterPage() {
     return;
   }
 
+  if (!error) {
+  await authClient.signOut();
   toast.success("User successfully registered");
   router.push("/login");
+}
   }
 
   const handleGoogleLogin = async() =>{
@@ -101,7 +104,7 @@ export default function RegisterPage() {
                 </label>
 
                 <input
-                  id="photo"
+                  id="image"
                   name="image"
                   type="url"
                   placeholder="https://example.com/photo.jpg"
