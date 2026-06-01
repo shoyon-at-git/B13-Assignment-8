@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 
 export default function Navbar() {
-    const { data } = authClient.useSession();
+    const { data , isPending} = authClient.useSession();
     const user = data?.user;
 
     const [imgError, setImgError] = useState(false);
@@ -16,6 +16,15 @@ export default function Navbar() {
     };
 
     const getInitial = (name) => name?.charAt(0)?.toUpperCase() || "U";
+    if (isPending) {
+        return (
+            <div className="navbar bg-base-100 shadow px-4 sticky top-0 z-50">
+                <div className="navbar-start">
+                    <span className="loading loading-spinner loading-sm"></span>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="navbar bg-base-100 shadow px-4 sticky top-0 z-50">
